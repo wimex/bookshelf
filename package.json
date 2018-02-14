@@ -4,7 +4,11 @@
   "repository": "https://github.com/wimex/bookshelf.git",
   "dependencies": {
     "@types/angular": "^1.6.42",
-    "angular": "^1.6.9"
+    "@types/angular-ui-router": "^1.1.40",
+    "angular": "^1.6.9",
+    "angular-ui-router": "^1.0.3",
+    "font-awesome": "^4.7.0",
+    "ngprogress-lite": "^1.0.8"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

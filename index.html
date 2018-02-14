@@ -5,16 +5,27 @@
     <title>Bookshelf</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    
-    <link rel="stylesheet" href="./style/reset.css"/>
-    <link rel="stylesheet" href="./style/app.css"/>
+    <base href="/bookshelf/" />
+
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style/reset.css" />
+    <link rel="stylesheet" href="./style/app.css" />
 </head>
 <body>
     <div id="site-background" ui-view>
-        
+        <div id="site-loading">
+            <i class="fa fa-fw fa-book"></i>
+        </div>
     </div>
-    
+
     <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="./node_modules/ngprogress-lite/ngprogress-lite.js"></script>
+
     <script type="text/javascript" src="./app/app.js"></script>
+    <script type="text/javascript" src="./modules/main/main-controller.js"></script>
 </body>
 </html>
