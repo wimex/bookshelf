@@ -7,6 +7,7 @@ module Bs.App {
                 "ui.router",
                 "ngProgressLite",
 
+                "bs.services",
                 "bs.main"
             ])
         .config([
@@ -32,5 +33,6 @@ module Bs.App {
                 });
         }]);
 
+    angular.module("bs.services", []);
     angular.module("bs.main", []);
 }
