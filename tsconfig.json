@@ -1,0 +1,10 @@
+﻿{
+  "compileOnSave": true,
+  "typeRoots": [
+    "node_modules"
+  ],
+  "exclude:": [
+    "bin/**/*.ts",
+    "obj/**/*.ts"
+  ]
+}
