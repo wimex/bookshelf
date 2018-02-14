@@ -5,4 +5,8 @@ module Bs.Models {
         keyword?: string;
         result?: gapi.client.books.Volumes;
     }
+
+    export interface IMainControllerScope extends ng.IScope {
+        cart: gapi.client.books.Volume[];
+    }
 }

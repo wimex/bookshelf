@@ -1,0 +1,19 @@
+﻿<h1>{{ctrl.book.volumeInfo.title}}</h1>
+<div class="book-details">
+    <div class="metadata">
+        <img ng-src="{{ctrl.book.volumeInfo.imageLinks.thumbnail}}"/>
+        <div class="authors">
+            <span ng-repeat="author in ctrl.book.volumeInfo.authors">{{author}}</span>
+        </div>
+        <div class="publisher">
+            {{ctrl.book.volumeInfo.publisher}}
+        </div>
+        <div class="link">
+            <a ng-href="{{ctrl.book.volumeInfo.infoLink}}" target="_blank">View on Google Books</a>
+        </div>
+    </div>
+    
+    <div class="description" ng-bind-html="ctrl.book.volumeInfo.description">
+        
+    </div>
+</div>

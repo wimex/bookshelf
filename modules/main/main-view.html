@@ -1,23 +1,37 @@
 ﻿<div id="site-content">
     <div id="site-header">
         <div class="header-search">
+            <i class="fa fa-fw fa-home" ng-click="ctrl.onHomeClicked()"></i>
+
+            &nbsp;&nbsp;&nbsp;
+
             <i ng-if="!ctrl.query.keyword" class="fa fa-fw fa-search"></i>
-            <i ng-if="ctrl.query.keyword" class="fa fa-fw fa-times"></i>
-            <input type="text" ng-model="ctrl.query.keyword" ng-change="ctrl.onKeywordChanged()" placeholder="Type here to search..."/>
+            <i ng-if="ctrl.query.keyword" ng-click="ctrl.onClearKeywordClicked()" style="cursor: pointer;" class="fa fa-fw fa-times"></i>
+            <input type="text" ng-model="ctrl.query.keyword" ng-change="ctrl.onKeywordChanged()" placeholder="Type here to search..." />
+
+            <div class="cart-container" ng-click="ctrl.$state.go('main.cart')">
+                <i class="fa fa-fw fa-shopping-cart"></i>
+                <div ng-if="ctrl.cart.length" class="cart-number">{{ctrl.cart.length}}</div>
+            </div>
         </div>
     </div>
-    <div id="site-inner">
+    <div id="site-inner" ui-view>
         <h1 ng-if="ctrl.query.keyword">Search results for '{{ctrl.query.keyword}}'</h1>
         <h1 ng-if="!ctrl.query.keyword">Type your query in the box to start searching!</h1>
-        <div class="book-list" ng-if="ctrl.query.result">
-            <div class="search-meta">{{ctrl.query.result.totalItems}} results</div>
+        <div class="book-list" ng-if="ctrl.query.result" infinite-scroll="ctrl.onBottomReached()" infinite-scroll-container="'#site-background'" infinite-scroll-distance="0.4">
+            <div class="search-meta">Displaying {{ctrl.query.result.items.length}} items of {{ctrl.query.result.totalItems}} results</div>
             <div class="book-tiles">
                 <div class="book-tile" ng-repeat="book in ctrl.query.result.items">
                     <img ng-if="book.volumeInfo.imageLinks.thumbnail" ng-src="{{book.volumeInfo.imageLinks.thumbnail}}" />
                     <img ng-if="!book.volumeInfo.imageLinks.thumbnail" ng-src="./style/placeholder.png" />
+                    <div class="cart-button" ng-click="ctrl.onAddToCartClicked(book)">
+                        <i class="fa fa-fw fa-cart-plus"></i>
+                    </div>
                     <div class="right">
                         <div class="title">
-                            <h2>{{book.volumeInfo.title}}</h2>
+                            <h2>
+                                <a ng-href="{{ctrl.$state.href('main.book', { bookId: book.id })}}">{{book.volumeInfo.title}}</a>
+                            </h2>
                         </div>
                         <div class="author">
                             <span ng-if="book.volumeInfo.authors.length" ng-repeat="author in book.volumeInfo.authors">{{author}}</span>

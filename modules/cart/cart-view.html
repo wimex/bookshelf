@@ -1,0 +1,11 @@
+﻿<h1>{{ctrl.$scope.cart.length}} element(s) in your cart</h1>
+<div><a href="#" ng-click="ctrl.onClearCartClicked()">Clear cart</a></div>
+
+<div class="cart-list">
+    <div class="cart-item" ng-repeat="item in ctrl.$scope.cart">
+        <img ng-src="{{item.volumeInfo.imageLinks.thumbnail}}" />
+        <h2>
+            <a ng-href="{{ctrl.$state.href('main.book', { bookId: item.id })}}">{{item.volumeInfo.title}}</a>
+        </h2>
+    </div>
+</div>
