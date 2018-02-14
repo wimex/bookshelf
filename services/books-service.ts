@@ -2,10 +2,10 @@
 
 module Bs.Services {
     export class BooksService {
-        private endpoint: string = "https://www.googleapis.com/books/v1/";
+        private endpoint: string = "https://www.googleapis.com/books/v1";
 
-        getBooks(): ng.IPromise<object> {
-            var url = this.endpoint + "/xyz";
+        search(keyword: string, index: number = 0, count: number= 40): ng.IPromise<object> {
+            var url = `${this.endpoint}/volumes?q=${keyword}&startIndex=${index}&maxResults=${count}`;
             return this.$q((resolve, reject) => {
                 this.$http
                     .get(url)

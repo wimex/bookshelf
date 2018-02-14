@@ -1,11 +1,30 @@
 ﻿<div id="site-content">
     <div id="site-header">
         <div class="header-search">
-            <i class="fa fa-fw fa-search"></i>
-            <input type="text" placeholder="Type here to search..."/>
+            <i ng-if="!ctrl.query.keyword" class="fa fa-fw fa-search"></i>
+            <i ng-if="ctrl.query.keyword" class="fa fa-fw fa-times"></i>
+            <input type="text" ng-model="ctrl.query.keyword" ng-change="ctrl.onKeywordChanged()" placeholder="Type here to search..."/>
         </div>
     </div>
     <div id="site-inner">
-        <h1>Most popular books</h1>
+        <h1 ng-if="ctrl.query.keyword">Search results for '{{ctrl.query.keyword}}'</h1>
+        <h1 ng-if="!ctrl.query.keyword">Type your query in the box to start searching!</h1>
+        <div class="book-list" ng-if="ctrl.query.result">
+            <div class="search-meta">{{ctrl.query.result.totalItems}} results</div>
+            <div class="book-tiles">
+                <div class="book-tile" ng-repeat="book in ctrl.query.result.items">
+                    <img ng-if="book.volumeInfo.imageLinks.thumbnail" ng-src="{{book.volumeInfo.imageLinks.thumbnail}}" />
+                    <img ng-if="!book.volumeInfo.imageLinks.thumbnail" ng-src="./style/placeholder.png" />
+                    <div class="right">
+                        <div class="title">
+                            <h2>{{book.volumeInfo.title}}</h2>
+                        </div>
+                        <div class="author">
+                            <span ng-if="book.volumeInfo.authors.length" ng-repeat="author in book.volumeInfo.authors">{{author}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -19,9 +19,24 @@ module Bs.App {
                 $stateProvider
                     .state("main",
                         {
-                            url: "/",
+                            url: "/:keyword?",
                             templateUrl: "./modules/main/main-view.html",
-                            controller: "mainController as ctrl"
+                            controller: "mainController as ctrl",
+                            resolve: {
+                                query: [
+                                    "$q", "$stateParams", "booksService", ($q: ng.IQService, $stateParams: any, booksService: Services.BooksService) => {
+                                        var keyword = typeof ($stateParams.keyword) !== "undefined" && $stateParams.keyword !== null && $stateParams.keyword !== "" ? $stateParams.keyword : "angular";
+                                        return $q((resolve, reject) => {
+                                            booksService.search(keyword).then((result) => {
+                                                    resolve({ keyword: keyword, result: result });
+                                                },
+                                                (response) => {
+                                                    reject(response);
+                                                });
+                                        });
+                                    }
+                                ]
+                            }
                         });
             }
         ])

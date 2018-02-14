@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/angular": "^1.6.42",
     "@types/angular-ui-router": "^1.1.40",
+    "@types/gapi.client.books": "^1.0.0",
     "angular": "^1.6.9",
     "angular-ui-router": "^1.0.3",
     "font-awesome": "^4.7.0",
