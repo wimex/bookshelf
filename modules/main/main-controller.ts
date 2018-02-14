@@ -6,11 +6,10 @@ module Bs.Controllers {
         query: Models.BookSearchQueryModel = {
 
         };
-
-        cart: gapi.client.books.Volume[] = [];
-
+        
         onAddToCartClicked(book: gapi.client.books.Volume) {
-            this.cart.push(book);
+            this.$scope.cart.push(book);
+            this.storageService.saveCart(this.$scope.cart);
         }
         
         onBottomReached() {
@@ -64,16 +63,17 @@ module Bs.Controllers {
         }
 
         onHomeClicked() {
-            this.$state.go("main");
+            var keyword = typeof(this.query) !== "undefined" && typeof(this.query.keyword) !== "undefined" && this.query.keyword !== null ? this.query.keyword : null;
+            this.$state.go("main", { keyword: keyword });
         }
 
-        constructor(protected $scope: Models.IMainControllerScope, protected $state: ng.ui.IStateService, protected ngProgressLite: any, protected booksService: Services.BooksService, query: Models.BookSearchQueryModel) {
+        constructor(protected $scope: Models.IMainControllerScope, protected $state: ng.ui.IStateService, protected ngProgressLite: any, protected booksService: Services.BooksService, protected storageService: Services.StorageService, query: Models.BookSearchQueryModel) {
             this.query = query;
-            this.$scope.cart = this.cart;
+            this.$scope.cart = this.storageService.getCart();
         }
     }
 
     angular
         .module("bs.main")
-        .controller("mainController", ["$scope", "$state", "ngProgressLite", "booksService", "query", MainController]);
+        .controller("mainController", ["$scope", "$state", "ngProgressLite", "booksService", "storageService", "query", MainController]);
 }

@@ -1,43 +1,28 @@
 "use strict";
 
 module Bs.Services {
-    export class BooksService {
-        private endpoint: string = "https://www.googleapis.com/books/v1";
+    export class StorageService {
+        key: string = "bs-cart";
 
-        getBook(bookId: string) {
-            var url = `${this.endpoint}/volumes/${bookId}`;
-            return this.$q((resolve, reject) => {
-                this.$http
-                    .get(url)
-                    .then((response: ng.IHttpResponse<object>) => {
-                            resolve(response.data);
-                        },
-                        (response) => {
-                            reject(response);
-                        });
-            });
+        getCart(): gapi.client.books.Volume[] {
+            var cart = this.$window.localStorage.getItem(this.key);
+            return typeof(cart) !== "undefined" && cart != null ? JSON.parse(cart) : [];
         }
 
-        search(keyword: string, index: number = 0, count: number= 33): ng.IPromise<object> {
-            var url = `${this.endpoint}/volumes?q=${keyword}&startIndex=${index}&maxResults=${count}`;
-            return this.$q((resolve, reject) => {
-                this.$http
-                    .get(url)
-                    .then((response: ng.IHttpResponse<object>) => {
-                            resolve(response.data);
-                        },
-                        (response) => {
-                            reject(response);
-                        });
-            });
+        saveCart(cart: gapi.client.books.Volume[]) {
+            this.$window.localStorage.setItem(this.key, JSON.stringify(cart));
+        }
+
+        clearCart() {
+            this.$window.localStorage.removeItem(this.key);
         }
         
-        constructor(protected $q: ng.IQService, protected $http: ng.IHttpService,) {
+        constructor(protected $q: ng.IQService, protected $window: ng.IWindowService) {
             
         }
     }
 
     angular
         .module("bs.services")
-        .service("booksService", ["$q", "$http", BooksService]);
+        .service("storageService", ["$q", "$window", StorageService]);
 }

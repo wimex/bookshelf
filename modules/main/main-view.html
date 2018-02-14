@@ -11,7 +11,7 @@
 
             <div class="cart-container" ng-click="ctrl.$state.go('main.cart')">
                 <i class="fa fa-fw fa-shopping-cart"></i>
-                <div ng-if="ctrl.cart.length" class="cart-number">{{ctrl.cart.length}}</div>
+                <div ng-if="ctrl.$scope.cart.length" class="cart-number">{{ctrl.$scope.cart.length}}</div>
             </div>
         </div>
     </div>
