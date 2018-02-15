@@ -8,11 +8,12 @@ module Bs.Controllers {
         };
         
         onAddToCartClicked(book: gapi.client.books.Volume) {
-            this.$scope.cart.push(book);
-            this.storageService.saveCart(this.$scope.cart);
+            this.$scope.global.cart.push(book);
+            this.storageService.saveCart(this.$scope.global.cart);
         }
         
         onBottomReached() {
+            // Don't allow scrolling when something else is loading
             if (this.loading > 0)
                 return;
 
@@ -36,8 +37,10 @@ module Bs.Controllers {
                 return;
             }
 
+            // Remember that a request is necessary
             this.loading++;
 
+            // If the user types too fast, leave
             if (this.loading > 1)
                 return;
 
@@ -54,6 +57,7 @@ module Bs.Controllers {
                 if (!next)
                     return;
 
+                // Search again if there are new letters
                 this.onKeywordChanged();
             });
         };
@@ -69,7 +73,9 @@ module Bs.Controllers {
 
         constructor(protected $scope: Models.IMainControllerScope, protected $state: ng.ui.IStateService, protected ngProgressLite: any, protected booksService: Services.BooksService, protected storageService: Services.StorageService, query: Models.BookSearchQueryModel) {
             this.query = query;
-            this.$scope.cart = this.storageService.getCart();
+            this.$scope.global = {
+                cart: this.storageService.getCart()
+            };
         }
     }
 

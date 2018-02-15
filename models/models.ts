@@ -7,6 +7,8 @@ module Bs.Models {
     }
 
     export interface IMainControllerScope extends ng.IScope {
-        cart: gapi.client.books.Volume[];
+        global: {
+            cart: gapi.client.books.Volume[];
+        }
     }
 }

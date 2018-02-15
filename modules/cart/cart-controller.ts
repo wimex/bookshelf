@@ -3,7 +3,7 @@
 module Bs.Controllers {
     export class CartController {
         onClearCartClicked() {
-            this.$scope.cart = [];
+            this.$scope.global.cart = [];
             this.storageService.clearCart();
         }
 

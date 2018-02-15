@@ -17,6 +17,8 @@ module Bs.App {
             "$stateProvider", "$urlRouterProvider", "$locationProvider",
             ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $locationProvider: ng.ILocationProvider,) => {
                 $locationProvider.html5Mode(true);
+
+                // Jump to a predefined query when loading the first time
                 $urlRouterProvider.otherwise("/search/angular");
 
                 var main = $stateProvider
